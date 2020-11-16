@@ -6,6 +6,6 @@
 
 ## Solved problems by difficulty : 
 
-#### Medium
+### Medium
 
-#### Hard
+### Hard
