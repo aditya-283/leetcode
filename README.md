@@ -4,7 +4,7 @@
 
 ![Progress](https://progress-bar.dev/1/?scale=600&title=InterviewGod&width=500&color=babaca&suffix=+problems)
 
-## Solved problems by difficulty : 
+## Solved problems by difficulty
 
 ### Medium
 
