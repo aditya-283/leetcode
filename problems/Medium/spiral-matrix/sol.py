@@ -3,16 +3,9 @@ from typing import List
 
 class Solution:
 	def spiralOrderRec(self, matrix):
-		if len(matrix) == 0:
+		if not matrix:
 			return []
-		return matrix[0] + self.spiralOrder(list(reversed([list(v) for v in list(zip(*matrix[1:]))])))
-	
-	def spiralOrder(self, matrix):
-		l = []
-		while len(matrix) > 0:
-			l += matrix.pop(0)
-			matrix = list(reversed([list(v) for v in list(zip(*matrix))]))
-		return l
+		return list(matrix[0]) + self.spiralOrderRec(list(reversed(list(zip(*matrix[1:])))))
 
 matrix = [[1, 2, 3],
 		  [4, 5, 6], 
