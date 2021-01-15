@@ -16,8 +16,9 @@ class Solution:
     	rightSubtreeSize = len(inorder) - inorder.index(preorder[0]) - 1
     	leftSubtreeSize = inorder.index(preorder[0])
 
-    	return TreeNode(preorder[0], self.buildTree(preorder[1:leftSubtreeSize+1], inorder[:rootIdxInorder]), 
-    						  self.buildTree(preorder[-rightSubtreeSize:], inorder[rootIdxInorder+1:]))
+    	return TreeNode(preorder[0], 
+    		            self.buildTree(preorder[1:leftSubtreeSize+1], inorder[:rootIdxInorder]), 
+    				    self.buildTree(preorder[-rightSubtreeSize:], inorder[rootIdxInorder+1:]))
 
 a = Solution().buildTree([3,9,20,15,7], [9,3,15,20,7])
 print(a.right.right.val)
