@@ -48,6 +48,16 @@ class DisjointSetForest:
 	def link(self, x, y):
 		self.union(self.find(x), self.find(y))
 
+
+
+# forest = DisjointSetForest([1, 2, 3, 4, 5])
+# forest.link(2, 3)
+# forest.link(4, 5)
+# forest.link(2, 4)
+# print(forest)
+# print(forest.find(1))
+
+
 class Solution:
 	def longestConsecutive(self, nums):
 		if not nums:
@@ -100,12 +110,4 @@ stmt = 'SolutionSlow().longestConsecutive([randrange(1, 999999) for i in range(1
 times = repeat(setup=setup_code, stmt=stmt, repeat=3, number=3)
 print(min(times))
 ## 9.3 seconds
-
-
-# forest = DisjointSetForest([1, 2, 3, 4, 5])
-# forest.link(2, 3)
-# forest.link(4, 5)
-# forest.link(2, 4)
-# print(forest)
-# print(forest.find(1))
 
