@@ -8,28 +8,28 @@ class Solution:
 		adjlist = defaultdict(list)
 		for edge in edgelist:
 			adjlist[edge[0]].append(edge[1])	
-
-			if edge[1] not in adjlist:
-				adjlist[edge[1]] = []			
+			adjlist[edge[1]].append(edge[0])
+			# if edge[1] not in adjlist:
+			# 	adjlist[edge[1]] = []			
 			
 		return adjlist
 
 	def hasCycle(self, adjlist):
 		def dfs_visit(v):
-			discovered.add(v)
+			open.add(v)
 			for nbr in adjlist[v]:
-				if nbr not in discovered and nbr not in finished:
+				if nbr not in open and nbr not in finished:
 					dfs_visit(nbr)
 				elif nbr in discovered:
 					back_edges.append((v, nbr))
 			finished.add(v)
-			discovered.remove(v)
+			open.remove(v)
 
-		discovered = set()
+		open = set()
 		finished = set()
 		back_edges = []
 		for v in adjlist.keys():
-			if v not in discovered and v not in finished:
+			if v not in open and v not in finished:
 				dfs_visit(v)
 		return len(back_edges) > 0
 
@@ -66,11 +66,35 @@ class Solution:
 		return start, end
 
 
-print(Solution().canFinish(7, [[1,2],
+	def bfs(self, edgelist):
+		def bfs_visit(q):
+			while q:
+				top = q.pop()
+				finished.add(top)
+				print(top, end='->')
+				for nbr in adjlist[top]:
+					if nbr not in discovered:
+						discovered.add(nbr)
+						q.appendleft(nbr)
+
+		adjlist = self.edgelist_to_adjlist(edgelist)
+		discovered = set()
+		finished = set()
+		for v in adjlist.keys():
+			if v not in discovered:
+				q = deque()
+				discovered.add(v)
+				q.appendleft(v)
+				bfs_visit(q)
+
+
+print(Solution().bfs([[1,2],
 					  [1,3],
 					  [1,4],
 					  [3,2],
 					  [2,5], 
 					  [2,6],
 					  [3,6],
-					  [3,7]]))
+					  [3,7],
+					  [9, 10],
+					  [9, 11]]))
