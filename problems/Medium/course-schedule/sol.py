@@ -64,10 +64,9 @@ class Solution:
 		print('START', str(start))
 		print('END', str(end))
 		return start, end
-	def toposort(self, edgelist)
 
 
-print(Solution().dfs([[1,2],
+print(Solution().canFinish(7, [[1,2],
 					  [1,3],
 					  [1,4],
 					  [3,2],
