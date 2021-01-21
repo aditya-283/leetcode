@@ -4,33 +4,37 @@ class WordDictionary:
 	def __init__(self):
 		self.data = {}
 
-	def traverse(self, word: str):
-		iter = self
-		while word:
-			if word[0] in iter.data:
-				iter = iter.data[word[0]]
-				word = word[1:]
-			else:
-				break
+	# def traverse(self, word: str):
+	# 	iter = self
+	# 	while word:
+	# 		if word[0] in iter.data:
+	# 			iter = iter.data[word[0]]
+	# 			word = word[1:]
+	# 		else:
+	# 			break
 
-		return iter, word
+	# 	return iter, word
 
-	def insert(self, word: str) -> None:
-		word = word + '$'
-		final_match, remainder = self.traverse(word)
-		iter = final_match
-		for c in remainder:
-			iter.data[c] =  WordDictionary()
-			iter = iter.data[c]
-
-
-	def searchUtil(self, word: str) -> bool:
-		final_match, remainder = self.traverse(word)
-		return not remainder
+	# def insert(self, word: str) -> None:
+	# 	word = word + '$'
+	# 	final_match, remainder = self.traverse(word)
+	# 	iter = final_match
+	# 	for c in remainder:
+	# 		iter.data[c] =  WordDictionary()
+	# 		iter = iter.data[c]
 
 
 	def addWord(self, word):
-		return self.insert(word)
+		word = word + '$'
+		trie = self.data
+		for c in word:
+			if c in trie:
+				trie = trie[c]
+			else:
+				trie[c] = {}
+				trie = trie[c]
+		
+		# return self.insert(word)
 
 
 	def searchRec(self, word):
@@ -46,6 +50,9 @@ class WordDictionary:
 	def search(self, word):
 		word = word + '$'
 		return self.searchRec(word)
+
+
+
 
 obj = Trie()
 print(obj.insert("apple"))
