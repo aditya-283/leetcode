@@ -41,3 +41,6 @@ print(Solution().findWords([["a","b","c"],
 							["a","f","g"]], 
 							# words=["eaabcdgfa"]))
 							words=["abcdefg","gfedcbaaa","eaabcdgfa","befa","dgc","ade"]))
+
+
+

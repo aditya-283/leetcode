@@ -1,19 +1,17 @@
+
 from typing import List
 from functools import cache
 
 class Solution:
-	def rob(self, nums: List[int]) -> int:
+	def rob(self, nums):
+		l = len(nums)
 		@cache
-		def robHelper(i, till):
-			if i >= till:
+		def robHelper(i, j):
+			if i > j:
 				return 0
-			return max(nums[i] + robHelper(i+2, till), robHelper(i+1, till))
+			return max(nums[i] + robHelper(i+2, j), robHelper(i+1, j))
 
-		if len(nums) == 0:
-			return 0
-		elif len(nums) <= 3:
-			return max(nums)
-		return max(nums[0] + robHelper(2, len(nums)-1), \
-					robHelper(1, len(nums)))
+		return max(nums[0] + robHelper(2, l-2), robHelper(1, l-1))
 
-print(Solution().rob([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]))from typing import List
+
+print(Solution().rob([1, 2, 3 ,1]))
