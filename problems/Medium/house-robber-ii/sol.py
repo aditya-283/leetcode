@@ -16,4 +16,4 @@ class Solution:
 		return max(nums[0] + robHelper(2, len(nums)-1), \
 					robHelper(1, len(nums)))
 
-print(Solution().rob([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]))
+print(Solution().rob([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]))from typing import List
