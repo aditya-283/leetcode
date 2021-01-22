@@ -49,35 +49,28 @@ class UnionFind:
 class Solution:
 	def validTree(self, n, edges):
 		if len(edges) != n-1:
-			print('here')
 			return False
 
 		if n == 1:
 			return True
-			
-		adjlist = defaultdict(list)
+
+		adjlist = defaultdict(set)
 		for v1, v2 in edges:
-			adjlist[v1].append(v2)
-			adjlist[v2].append(v1)
+			adjlist[v1].add(v2)
+			adjlist[v2].add(v1)
 
 		def hasCycleBFS(s):
-			discovered = set()
-			parent = {}
-			q = deque()
-			q.appendleft(s)
-			discovered.add(s)
-			parent[s] = -1
+			q = deque([s])
+			discovered = {s}
 			while q:
 				top = q.pop()
 				for nbr in adjlist[top]:
-					if nbr != parent[top]:
-						if nbr not in discovered:
-							parent[nbr] = top
-							discovered.add(nbr)
-							q.appendleft(nbr)
-						else:
-							# print(nbr)
-							return False
+					if nbr not in discovered:
+						adjlist[nbr].remove(top)
+						discovered.add(nbr)
+						q.appendleft(nbr)
+					else:
+						return False
 			return True
 
 		return hasCycleBFS(edges[0][0])
