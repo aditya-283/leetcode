@@ -1,57 +1,66 @@
 from typing import List
 from collections import deque
 
-# Definition for a binary tree node.
-class Node:
-	def __init__(self, x, children=None):
-		self.val = x
-		self.children = children
+# class TreeNode:
+# 	def __init__(self, val=0, left=None, right=None):
+# 		self.val = val
+# 		self.left = left
+# 		self.right = right
+
 
 class Codec:
-	def serialize(self, root: "Node") -> str:
+	def serialize(self, root: TreeNode) -> str:
 		"""Encodes a tree to a single string.
 		"""
-		if not root:
-			return ''
-		subtreeStrings = [f'({self.serialize(child)})' for child in root.children] if root.children else []
-		return f'{root.val}' + (' ' + ' '.join(subtreeStrings) if subtreeStrings else '')
-		
+		def preorder(root, acc):
+			if not root:
+				return
+			acc.append(str(root.val))
+			preorder(root.left, acc)
+			preorder(root.right, acc)
 
-	def deserialize(self, data: str) -> "Node":
+		def inorder(root, acc):
+			if not root:
+				return
+			inorder(root.left, acc)
+			acc.append(str(root.val))
+			inorder(root.right, acc)
+
+		preorder_arr, inorder_arr = [], []
+		preorder(root, preorder_arr), inorder(root, inorder_arr)
+		return ' '.join(preorder_arr) + '#' + ' '.join(inorder_arr)
+
+
+	def deserialize(self, data: str) -> TreeNode:
 		"""Decodes your encoded data to tree.
 		"""
+
+		def deserializeFromOrderings(preorder, inorder):
+			if not preorder:
+				return None
+			root = preorder[0]
+			rootIdx = inorder.index(root)
+			leftSubtreeSize = rootIdx
+			return TreeNode(root, deserializeFromOrderings(preorder[1:leftSubtreeSize+1], inorder[:rootIdx]), 
+								  deserializeFromOrderings(preorder[leftSubtreeSize+1:], inorder[rootIdx+1:]))
+
 		if not data:
 			return None
-		arr = data.split()
-		rootVal = arr[0]
-		data = ' '.join(arr[1:])
-		subtreeStrings = []
-		nested = 0
-		for i in range(len(data)):
-			if not nested and data[i] == '_':
-				subtreeStrings.append('_')
-			if data[i] == '(':
-				nested += 1
-				if nested == 1:
-					start = i
-			if data[i] == ')':
-				nested -= 1
-				if not nested:
-					end = i
-					subtreeStrings.append(data[start+1:end])
 
-		return Node(rootVal, [self.deserialize(subtreeString) for subtreeString in subtreeStrings])
+		orderings = data.split('#')
+		if len(orderings) != 2:
+			print('Malformed input!')
+
+		preorder = [int(x) for x in orderings[0].split()]
+		inorder = [int(x) for x in orderings[1].split()] 
+
+		return deserializeFromOrderings(preorder, inorder) 
 
 
-
-		
-
-# Your Codec object will be instantiated and called as such:
-# Your Codec object will be instantiated and called as such:
 ser = Codec()
 deser = Codec()
-root = Node(2, [Node(1, [Node(.5), Node(1.5)]), Node(3), Node(6, [Node(4), Node(8)])])
+root = TreeNode(20, TreeNode(10, TreeNode(5), TreeNode(15)),  TreeNode(60, TreeNode(40), TreeNode(80)))
 tree = ser.serialize(root)
 print(tree)
 ans = deser.deserialize(tree)
-print(ans.children[2].children[1].val)
+print(ans.right.left.val)

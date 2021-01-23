@@ -2,26 +2,37 @@ from typing import List
 from collections import deque
 
 # Definition for a binary tree node.
-class Node:
-	def __init__(self, x, children=None):
-		self.val = x
-		self.children = children
+# Definition for a binary tree node.
+
+
+# Preorder + Inorder works directly only if tree has unique elements. Otherwise it doesn't
+# Use BFS and bookkeep the nulls as well
+
+class TreeNode:
+	def __init__(self, val=0, left=None, right=None):
+		self.val = val
+		self.left = left
+		self.right = right
+
 
 class Codec:
-	def serialize(self, root: "Node") -> str:
+	def serialize(self, root: TreeNode) -> str:
 		"""Encodes a tree to a single string.
 		"""
 		if not root:
-			return ''
-		subtreeStrings = [f'({self.serialize(child)})' for child in root.children] if root.children else []
-		return f'{root.val}' + (' ' + ' '.join(subtreeStrings) if subtreeStrings else '')
+			return '_'
+		else:
+			left_repr = f'({self.serialize(root.left)})' if root.left else '_'
+			right_repr = f'({self.serialize(root.right)})' if root.right else '_'
+			return f'{root.val} {left_repr} {right_repr}'
 		
 
-	def deserialize(self, data: str) -> "Node":
+	def deserialize(self, data: str) -> TreeNode:
 		"""Decodes your encoded data to tree.
 		"""
-		if not data:
+		if data[0] == '_':
 			return None
+
 		arr = data.split()
 		rootVal = arr[0]
 		data = ' '.join(arr[1:])
@@ -40,18 +51,16 @@ class Codec:
 					end = i
 					subtreeStrings.append(data[start+1:end])
 
-		return Node(rootVal, [self.deserialize(subtreeString) for subtreeString in subtreeStrings])
-
-
-
+		return TreeNode(rootVal, self.deserialize(subtreeStrings[0]), self.deserialize(subtreeStrings[1]))
 		
 
 # Your Codec object will be instantiated and called as such:
 # Your Codec object will be instantiated and called as such:
 ser = Codec()
 deser = Codec()
-root = Node(2, [Node(1, [Node(.5), Node(1.5)]), Node(3), Node(6, [Node(4), Node(8)])])
+root = TreeNode(20, TreeNode(10, TreeNode(5), TreeNode(15)),  TreeNode(60, TreeNode(40), TreeNode(80)))
 tree = ser.serialize(root)
 print(tree)
 ans = deser.deserialize(tree)
-print(ans.children[2].children[1].val)from typing import List
+print(ans.right.left.val)
+# print(ans.children[2].children[1].val)
