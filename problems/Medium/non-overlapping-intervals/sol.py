@@ -17,7 +17,6 @@ class Solution:
 				last = interval
 				first = False
 			elif not first and doesOverlap(interval, last):
-				# print(interval, 'being erased')
 				count += 1
 			else:
 				last = interval
