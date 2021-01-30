@@ -41,4 +41,4 @@ print(Solution().treeToDoublyList(Node(4, Node(2, Node(1), Node(3)), Node(5))).r
 print(Solution().treeToDoublyList(Node(4, Node(2, Node(1), Node(3)), Node(5))).right.right.val)
 print(Solution().treeToDoublyList(Node(4, Node(2, Node(1), Node(3)), Node(5))).right.right.right.val)
 print(Solution().treeToDoublyList(Node(4, Node(2, Node(1), Node(3)), Node(5))).right.right.right.right.val)
-print(Solution().treeToDoublyList(Node(4, Node(2, Node(1), Node(3)), Node(5))).right.right.right.right.right.val)
+print(Solution().treeToDoublyList(Node(4, Node(2, Node(1), Node(3)), Node(5))).right.right.right.right.right.val)from typing import List
