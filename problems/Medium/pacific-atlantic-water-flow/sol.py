@@ -9,7 +9,7 @@ class Solution:
 			return []
 
 		R, C = len(matrix), len(matrix[0])
-		
+
 		def nbrs(i, j):
 			return [(r, c) for r, c in [(i-1, j), (i+1, j), (i, j-1), (i, j+1)] if 0 <= r < R and 0 <= c < C]
 
@@ -52,3 +52,4 @@ print(Solution().pacificAtlantic([[1, 2, 2, 3, 5],
 								  [2, 4, 5, 3, 1],
 								  [6, 7, 1, 4, 5],
 								  [5, 1, 1, 2, 4]]))
+
