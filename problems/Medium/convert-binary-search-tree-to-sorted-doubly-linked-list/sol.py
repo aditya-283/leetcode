@@ -7,9 +7,6 @@ class Node:
 		self.left = left
 		self.right = right
 
-	# def __repr__(self):
-		# return f'{self.val}-{self.right}'
-
 class Solution:
 	def treeToDoublyList(self, root: Node) -> Node:
 		if not root:
