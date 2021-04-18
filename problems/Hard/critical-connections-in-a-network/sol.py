@@ -12,7 +12,7 @@ class Solution:
 		opened = {}
 		closed = {}
 		parent = {}
-		highest_reachable = {}
+		highest_reachable = {v: v for v in range(n)}
 		global time
 		time = 0
 		bridges = set()
