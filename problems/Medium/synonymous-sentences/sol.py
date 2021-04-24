@@ -1,6 +1,7 @@
 from typing import List
 from collections import defaultdict, deque
 from itertools import product
+import bisect
 
 class UnionFind:
 	def __init__(self, elements):
@@ -36,10 +37,7 @@ class Solution:
 
 		group = defaultdict(list)
 		for w in syn_word_set:
-			group[unionFind.find(w)].append(w)
-
-		for k in group:
-			group[k] = sorted(group[k])
+			bisect.insort(group[unionFind.find(w)], w)
 
 		marked = [w for w in text.split() if w in syn_word_set]
 		choices = product(*[group[unionFind.find(w)] for w in marked])
