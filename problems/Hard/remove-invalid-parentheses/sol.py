@@ -1,8 +1,13 @@
 from typing import List
+from collections import deque
+from itertools import product
 
 class Solution:
-    def removeInvalidParentheses(self, s: str) -> List[str]:
+	def removeInvalidParentheses(self, s: str) -> List[str]:
+		removeChoices = set()
+		
+		
 
 
-        
-from typing import List
+print(Solution().removeInvalidParentheses(")("))
+
