@@ -34,8 +34,7 @@ def isBipartiteBFS(graph: List[List[int]]) -> bool:
 class Solution:
 	def isBipartite(graph: List[List[int]]) -> bool:
 		def color_node(u, clr=True):
-			if u in color:
-				return color[u] == clr
+			if u in color: return color[u] == clr
 			else:
 				color[u] = clr
 				return all(color_node(nbr, not clr) for nbr in graph[u])
