@@ -10,7 +10,7 @@ class Solution:
 			return [(0, 0), (0, C-1), (R-1, C-1), (R-1, 0)]
 				
 		cycle = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-		spiral = set()
+		spiral = []
 		leg_length = 0
 		r, c = r0, c0
 		while True:
@@ -19,13 +19,14 @@ class Solution:
 			
 			rot = 0
 			for r_inc, c_inc in cycle:
-				spiral.add((r, c))
 				if not rot%2:
 					leg_length += 1
 				for l in range(leg_length):
+					if isValid(r, c):
+						spiral.append((r, c))
 					r += r_inc
 					c += c_inc
 				rot += 1
-				
-			
-		return list(spiral)from typing import List
+		return spiral
+
+print(Solution().spiralMatrixIII(5, 6, 1, 4))
