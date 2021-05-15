@@ -1,3 +1,7 @@
+# officially the worst method ever is checking for odd length cycles using BFS
+from collections import deque, defaultdict
+from typing import List
+
 def isBipartiteBFS(graph: List[List[int]]) -> bool:
 	def bfsContainsOddCycle(s, step):
 		q = deque()
@@ -31,8 +35,8 @@ def isBipartiteBFS(graph: List[List[int]]) -> bool:
 
 #Below are the best solutions for bipartite checking. DO NOT CHECK FOR ODD LENGTH CYCLES! STUPID
 
-class Solution:
-	def isBipartite(graph: List[List[int]]) -> bool:
+class SolutionDFS:
+	def isBipartite(self, graph: List[List[int]]) -> bool:
 		def color_node(u, clr=True):
 			if u in color: return color[u] == clr
 			else:
@@ -42,8 +46,8 @@ class Solution:
 		return all(color_node(s) for s in range(len(graph)) if s not in color)
 
 
-class Solution:
-	def isBipartite(graph: List[List[int]]) -> bool:
+class SolutionUF:
+	def isBipartite(self, graph: List[List[int]]) -> bool:
 		uf = UnionFind(range(len(graph)))
 		for node in graph:
 			for nbr in graph[node]:
@@ -52,5 +56,64 @@ class Solution:
 				uf.union(nbr, graph[node][0])
 
 		return True
+
+
+
+# general cycle detection and topo sort
+class Solution:
+	def topoSort(self, n, edges):
+		self.graph = defaultdict(list)
+		for u, v in edges:
+			self.graph[v].append(u)
+			self.graph[u]
+
+		def dfs(s):
+			opened.add(s)
+			for nbr in self.graph[s]:
+				if nbr in opened and nbr not in finished:
+					raise ValueError("Detected directed cycle")
+				if nbr not in opened:
+					dfs(nbr)
+			finished.add(s)
+			topo.appendleft(s)
+
+		opened = set()
+		finished = set()
+		topo = deque()
+		try: 
+			for node in self.graph:
+				if node not in opened and node not in finished:
+					dfs(node)
+		except ValueError:
+			return []
+
+		return topo
+
+
+print(Solution().topoSort(2, [[0,1],[1,0]]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
