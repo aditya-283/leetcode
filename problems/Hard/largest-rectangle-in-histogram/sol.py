@@ -48,4 +48,3 @@ def adjacentElem(arr, fromStart=True, lessThan=True):
 
 
 print(adjacentElem([2,1,5,6,2,3], True, False))
-from typing import List

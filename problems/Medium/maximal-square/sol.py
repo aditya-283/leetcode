@@ -19,4 +19,4 @@ class Solution:
 				return 0
 		return max(maximalSquareEndingAt(i, j) for i in range(len(matrix)) for j in range(len(matrix[0])))**2
 
-print(Solution().maximalSquare(matrix = [["0"]]))from typing import List
+print(Solution().maximalSquare(matrix = [["0"]]))
