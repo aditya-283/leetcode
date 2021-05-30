@@ -4,32 +4,24 @@ from bisect import bisect_left
 
 class Solution:
 	def wordsTyping(self, sentence: List[str], rows: int, cols: int) -> int:
-		i, n = 0, len(sentence)
-		r, c = rows, cols
-		lengths = [len(word) for word in sentence]
+		def wordsFit(i):
+			spaceTaken = sentence[i]
+			count = 0
+			while spaceTaken < cols:
+				i = (i + 1) % len(sentence)
+				count += 1
+				spaceTaken += len(sentence[i]) + 1
+			return count
 
-		if max(lengths) > cols:
-			return 0
+		wv = {}
+		for i in range(len(sentence)):
+			wc[i] = wordsFit(i)
 
-		ans = 0
-		dp = {}
-		nxt = {}
+		words, i = 0, 0
 		for r in range(rows):
-			if i not in dp:
-				dp[i] = 0
-				stops = [sum(x) for x in zip(lengths, range(n))]
-				while bisect_left(stops, cols) == n:
-					cols -= 
-				print(i_)
-				if i_ == n:
-
-				nxt[i] = bisect_left(stops, cols)
-				ans += dp[i]
-			else:
-				ans += dp[i]
-				i = nxt[i]
-		return ans
-
+			words += wc[i]
+			i += wc[i]
+		return words // len(sentence)
 
 
 
