@@ -1,17 +1,30 @@
 from typing import List
-from collections import deque
 
 class Solution:
 	def numMatchingSubseq(self, s: str, words: List[str]) -> int:
-		qwords = [deque(word) for word in words]
+		def isSubstring(a, b):
+			i = 0
+			for c in b:
+				if a[i] == c:
+					i += 1
+					if i == len(a):
+						return True
+			return False
+
 		cnt = 0
-		for c in s:
-			for i in range(len(qwords)):
-				if qwords[i] and c == qwords[i][0]:
-					qwords[i].popleft()
-
-		return len([i for i in range(len(words)) if not qwords[i]])
-
+		seenTrue = set()
+		seenFalse = set()
+		for word in words:
+			if word in seenTrue:
+				cnt += 1
+			elif word in seenFalse:
+				continue
+			elif isSubstring(word, s):
+				seenTrue.add(word)
+				cnt += 1
+			else:
+				seenFalse.add(word)
+		return cnt
 
 
 print(Solution().numMatchingSubseq(s = "abcde", words = ["a","bb","acd","ace"]))
