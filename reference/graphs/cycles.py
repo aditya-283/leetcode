@@ -60,6 +60,14 @@ class SolutionUF:
 
 
 # general cycle detection and topo sort
+
+# As a general rule, don't use exceptions for control flow. But also, cycle detection IS an exceptional route for a toposort program
+# So the final word is this - if the name of your function is isDAG whose main purpose is to look for cycles, then using exceptions for control flow is considered bad.
+# But if you're doing topo sort and the expectation is receiving a DAG and you're required only to take care of that, then using a ValueError for the exceptional cyclic case isn't too bad. 
+# Ultimately it does come down to taste and readability a little bit. The convoluted if statements that percolate the -1 from the deep within the recursion to outside, is also not super readable
+# Two ways around that - using a stack to avoid recursion entirely and to be able to directly return when you see a cyle
+# Use an array of backEdges defined outside, that will store all backedges. If its empty, there were no cycles.
+
 class Solution:
 	def topoSort(self, n, edges):
 		self.graph = defaultdict(list)
